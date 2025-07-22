@@ -1,0 +1,8 @@
+#!/bin/bash
+# Install and configure WireGuard
+apt-get update
+apt-get install -y wireguard
+wg genkey | tee /etc/wireguard/privatekey | wg pubkey > /etc/wireguard/publickey
+cp configs/wireguard.conf /etc/wireguard/wg0.conf
+systemctl enable wg-quick@wg0
+systemctl start wg-quick@wg0

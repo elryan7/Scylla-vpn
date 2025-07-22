@@ -1,0 +1,17 @@
+#!/bin/bash
+# Kill switch for Scylla VPN
+if [ "$1" == "enable" ]; then
+    iptables -F
+    iptables -A OUTPUT -o lo -j ACCEPT
+    iptables -A OUTPUT -d 127.0.0.1 -j ACCEPT
+    iptables -A OUTPUT -o tun0 -j ACCEPT
+    iptables -A OUTPUT -o wg0 -j ACCEPT
+    iptables -A OUTPUT -j DROP
+    echo "Kill switch enabled"
+elif [ "$1" == "disable" ]; then
+    iptables -F
+    echo "Kill switch disabled"
+else
+    echo "Usage: $0 {enable|disable}"
+    exit 1
+fi

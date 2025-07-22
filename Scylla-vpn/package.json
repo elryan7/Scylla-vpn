@@ -1,0 +1,10 @@
+{
+  "name": "scylla-vpn",
+  "version": "1.0.0",
+  "scripts": {
+    "build:css": "npx tailwindcss -i ./static/css/input.css -o ./static/css/tailwind.css --minify"
+  },
+  "dependencies": {
+    "tailwindcss": "^3.4.3"
+  }
+}

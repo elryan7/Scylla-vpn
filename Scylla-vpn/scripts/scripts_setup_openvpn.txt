@@ -1,0 +1,13 @@
+#!/bin/bash
+# Install and configure OpenVPN
+apt-get update
+apt-get install -y openvpn
+openvpn --genkey --secret /etc/openvpn/server.key
+openssl req -x509 -newkey rsa:2048 -nodes -days 365 -keyout /etc/openvpn/ca.key -out /etc/openvpn/ca.crt
+openssl genpkey -algorithm RSA -out /etc/openvpn/server.key
+openssl req -new -key /etc/openvpn/server.key -out /etc/openvpn/server.csr
+openssl x509 -req -in /etc/openvpn/server.csr -CA /etc/openvpn/ca.crt -CAkey /etc/openvpn/ca.key -CAcreateserial -out /etc/openvpn/server.crt -days 365
+openssl dhparam -out /etc/openvpn/dh2048.pem 2048
+cp configs/openvpn.conf /etc/openvpn/server.conf
+systemctl enable openvpn@server
+systemctl start openvpn@server

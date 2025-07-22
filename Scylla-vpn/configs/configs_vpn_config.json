@@ -1,0 +1,14 @@
+{
+    "servers": [
+        {
+            "ip": "127.0.0.1",
+            "protocol": "openvpn"
+        }
+    ],
+    "users": [
+        {
+            "username": "user1",
+            "protocol": "openvpn"
+        }
+    ]
+}
